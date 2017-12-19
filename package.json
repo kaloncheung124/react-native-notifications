@@ -22,10 +22,12 @@
   "nativePackage": true,
   "dependencies": {
     "core-js": "^1.0.0",
-    "uuid": "^2.0.3"
+    "uuid": "^2.0.3",
+    "react": ">=0.14.5",
+    "react-native": ">=0.25.1"
   },
   "peerDependencies": {
-    "react": "16.0.0-alpha.12",
+    "react": ">=0.14.5",
     "react-native": ">=0.25.1"
   },
   "devDependencies": {
