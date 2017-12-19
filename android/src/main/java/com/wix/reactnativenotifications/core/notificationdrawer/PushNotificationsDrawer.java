@@ -31,14 +31,10 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     }
 
     @Override
-    public void onAppInit() {
-        clearAll();
-    }
+    public void onAppInit() {}
 
     @Override
-    public void onAppVisible() {
-        clearAll();
-    }
+    public void onAppVisible() {}
 
     @Override
     public void onNewActivity(Activity activity) {
@@ -50,9 +46,7 @@ public class PushNotificationsDrawer implements IPushNotificationsDrawer {
     }
 
     @Override
-    public void onNotificationOpened() {
-        clearAll();
-    }
+    public void onNotificationOpened() {}
 
     @Override
     public void onNotificationClearRequest(int id) {
