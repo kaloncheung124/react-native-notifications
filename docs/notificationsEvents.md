@@ -14,9 +14,13 @@ Example:
 
 ```javascript
 constructor() {
-	NotificationsIOS.addEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-    NotificationsIOS.addEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-    NotificationsIOS.addEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+    this._boundOnNotificationReceivedForeground = this.onNotificationReceivedForeground.bind(this);
+    this._boundOnNotificationReceivedBackground = this.onNotificationReceivedBackground.bind(this);
+    this._boundOnNotificationOpened = this.onNotificationOpened.bind(this);
+    
+    NotificationsIOS.addEventListener('notificationReceivedForeground', this._boundOnNotificationReceivedForeground);
+    NotificationsIOS.addEventListener('notificationReceivedBackground', this._boundOnNotificationReceivedBackground);
+    NotificationsIOS.addEventListener('notificationOpened', this._boundOnNotificationOpened);
 }
 
 onNotificationReceivedForeground(notification) {
@@ -33,9 +37,9 @@ onNotificationOpened(notification) {
 
 componentWillUnmount() {
 	// Don't forget to remove the event listeners to prevent memory leaks!
-	NotificationsIOS.removeEventListener('notificationReceivedForeground', this.onNotificationReceivedForeground.bind(this));
-	NotificationsIOS.removeEventListener('notificationReceivedBackground', this.onNotificationReceivedBackground.bind(this));
-	NotificationsIOS.removeEventListener('notificationOpened', this.onNotificationOpened.bind(this));
+	NotificationsIOS.removeEventListener('notificationReceivedForeground', this._boundOnNotificationReceivedForeground);
+	NotificationsIOS.removeEventListener('notificationReceivedBackground', this._boundOnNotificationReceivedBackground);
+	NotificationsIOS.removeEventListener('notificationOpened', this._boundOnNotificationOpened);
 }
 ```
 
@@ -66,7 +70,10 @@ import {NotificationsAndroid} from 'react-native-notifications';
 
 // On Android, we allow for only one (global) listener per each event type.
 NotificationsAndroid.setNotificationReceivedListener((notification) => {
-	console.log("Notification received on device", notification.getData());
+	console.log("Notification received on device in background or foreground", notification.getData());
+});
+NotificationsAndroid.setNotificationReceivedInForegroundListener((notification) => {
+	console.log("Notification received on device in foreground", notification.getData());
 });
 NotificationsAndroid.setNotificationOpenedListener((notification) => {
 	console.log("Notification opened by device user", notification.getData());
